@@ -22,9 +22,11 @@ gem "responders"
 gem "traceroute"
 gem "rails_12factor", group: :production
 gem "populator"
+gem "newrelic_rpm"
 
 group :development, :test do
   gem "pry-rails"
+  gem "pry"
   gem "awesome_print"
   gem "web-console", "~> 2.0"
   gem "rspec-rails"
