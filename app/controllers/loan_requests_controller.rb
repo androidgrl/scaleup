@@ -2,7 +2,7 @@ class LoanRequestsController < ApplicationController
   before_action :set_loan_request, only: [:update, :show]
 
   def index
-    @loan_requests = LoanRequest.paginate(:page => params[:page], :per_page => 30)
+    @loan_requests = LoanRequest.paginate(:page => params[:page], :per_page => 15)
     @categories = Category.all.pluck(:title)
   end
 
@@ -24,6 +24,7 @@ class LoanRequestsController < ApplicationController
   end
 
   def show
+
   end
 
   def update
