@@ -10,6 +10,7 @@ namespace :load_script do
   end
 end
 
+# if you provide url at end of rake script you can put heroku url
 # TODO: Add concurrency factor:
 #if __FILE__ == $0
   #1.times.map do

@@ -5,16 +5,18 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 pull-left">
-      <select class="form-control btn-info">
+      <ul>
         <% @categories.each do |category| %>
-          <option value="<%=category%>"><%=category%></option>
+          <li><%= link_to category.title, category %></li>
         <% end %>
-      </select>
+      </ul>
+      <%#= collection_select(:category, :category_id, @categories, :id, :title) %>
     </div>
-
-    <%= render "shared/search" %>
-
   </div>
+
+  <%= render "shared/search" %>
+
+</div>
 </div>
 
 <br>

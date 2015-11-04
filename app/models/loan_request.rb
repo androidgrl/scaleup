@@ -1,4 +1,6 @@
 class LoanRequest < ActiveRecord::Base
+  include InvalidatesCache
+
   validates :title, :description, :amount,
     :requested_by_date, :repayment_begin_date,
     :repayment_rate, :contributed, presence: true
@@ -11,6 +13,12 @@ class LoanRequest < ActiveRecord::Base
   enum status: %w(active funded)
   enum repayment_rate: %w(monthly weekly)
   before_create :assign_default_image
+
+  def self.cached_count
+    Rails.cache.fetch("loan_requests_count") do
+      count
+    end
+  end
 
   def assign_default_image
     self.image_url = DefaultImages.random if self.image_url.to_s.empty?
