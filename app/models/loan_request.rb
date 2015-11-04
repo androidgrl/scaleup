@@ -81,6 +81,8 @@ class LoanRequest < ActiveRecord::Base
   end
 
   def related_projects
-    (categories.flat_map(&:loan_requests) - [self]).shuffle.take(4)
+    #get the first 4 categories, then get the first loan request from that
+    categories[0].loan_requests.take(4)
+    #(categories.flat_map(&:loan_requests) - [self]).sample(4)
   end
 end

@@ -23,6 +23,8 @@ gem "traceroute"
 gem "rails_12factor", group: :production
 gem "populator"
 gem "newrelic_rpm"
+gem 'will_paginate', '~> 3.0.6'
+gem "bullet", :group => "development"
 
 group :development, :test do
   gem "pry-rails"
@@ -34,6 +36,7 @@ group :development, :test do
   gem "launchy"
   gem "database_cleaner"
   gem "poltergeist"
+  gem "rack-mini-profiler"
 end
 
 group :development do
