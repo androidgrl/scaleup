@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get "/browse", to: "loan_requests#index"
 
+  resources :categories, only: [:show]
+
   get "/portfolio", to: "borrower_portfolio#show"
 
   resources :payment, only: [:update]
