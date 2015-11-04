@@ -25,6 +25,7 @@ gem "populator"
 gem "newrelic_rpm"
 gem 'will_paginate', '~> 3.0.6'
 gem "bullet", :group => "development"
+gem 'dalli'
 
 group :development, :test do
   gem "pry-rails"
