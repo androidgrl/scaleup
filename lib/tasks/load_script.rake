@@ -1,4 +1,5 @@
 require "load_script/session"
+require "capybara/poltergeist"
 
 namespace :load_script do
   desc "Run a load testing script against the app. Accepts 'HOST' as an ENV argument. Defaults to 'localhost:3000'."
@@ -10,6 +11,7 @@ namespace :load_script do
   end
 end
 
+# rake load_script:run url
 # if you provide url at end of rake script you can put heroku url
 # TODO: Add concurrency factor:
 #if __FILE__ == $0

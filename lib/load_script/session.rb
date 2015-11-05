@@ -25,7 +25,7 @@ module LoadScript
 
     def run
       while true
-        run_action(actions.sample)
+        run_action(:user_browse_loan_requests)
       end
     end
 
@@ -52,15 +52,21 @@ module LoadScript
     def log_in(email="demo+horace@jumpstartlab.com", pw="password")
       log_out
       session.visit host
-      session.click_link("Log In")
-      session.fill_in("email_address", with: email)
-      session.fill_in("password", with: pw)
-      session.click_link_or_button("Login")
+      session.click_link("Login")
+      session.fill_in("Email", with: email)
+      session.fill_in("Password", with: pw)
+      session.click_link_or_button("Log In")
     end
 
     def browse_loan_requests
+      puts "browsing loan requests"
       session.visit "#{host}/browse"
       session.all(".lr-about").sample.click
+    end
+
+    def user_browse_loan_requests
+      log_in
+      browse_loan_requests
     end
 
     def log_out
@@ -79,6 +85,7 @@ module LoadScript
     end
 
     def sign_up_as_lender(name = new_user_name)
+      puts "signing up as lender"
       log_out
       session.find("#sign-up-dropdown").click
       session.find("#sign-up-as-lender").click
