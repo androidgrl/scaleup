@@ -11,6 +11,7 @@ namespace :load_script do
   end
 end
 
+#4.times.map { Thread.new { browse } }.map(&:join)
 # rake load_script:run url
 # if you provide url at end of rake script you can put heroku url
 # TODO: Add concurrency factor:
