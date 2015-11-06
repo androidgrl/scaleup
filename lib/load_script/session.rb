@@ -20,12 +20,12 @@ module LoadScript
     end
 
     def session
-      @session ||= Capybara::Session.new(:poltergeist)
+      @session ||= Capybara::Session.new(:selenium)
     end
 
     def run
       while true
-        run_action(:user_browse_loan_requests)
+        run_action(:view_individual_loan_request)
       end
     end
 
@@ -46,7 +46,7 @@ module LoadScript
     end
 
     def actions
-      [:browse_loan_requests, :sign_up_as_lender]
+      [:browse_loan_requests, :user_browse_loan_requests, :sign_up_as_lender]
     end
 
     def log_in(email="demo+horace@jumpstartlab.com", pw="password")
@@ -61,12 +61,46 @@ module LoadScript
     def browse_loan_requests
       puts "browsing loan requests"
       session.visit "#{host}/browse"
-      session.all(".lr-about").sample.click
     end
 
     def user_browse_loan_requests
+      puts "user browsing loan requests"
       log_in
-      browse_loan_requests
+      session.visit "#{host}/browse"
+    end
+
+    def browse_pages_of_loan_requests
+      puts "browsing pages of loan requests"
+      session.visit "#{host}/browse"
+      session.all(".pagination a").sample.click
+    end
+
+    def user_browse_pages_of_loan_requests
+      puts "user browsing pages of loan requests"
+      log_in
+      session.visit "#{host}/browse"
+      session.all(".pagination a").sample.click
+    end
+
+    def view_individual_loan_request
+      puts "viewing individual loan request"
+      log_out
+      session.visit "#{host}/browse"
+      session.all("a.lr-about").sample.click
+    end
+
+    def user_view_individual_loan_request
+      puts "user viewing individual loan request"
+      log_in
+      session.visit "#{host}/browse"
+      session.all("a.lr-about").sample.click
+    end
+
+    def user_browse_categories
+      puts "user browsing categories"
+      log_in
+      session.visit "#{host}/browse"
+      session.click_on(categories.sample)
     end
 
     def log_out
@@ -99,7 +133,7 @@ module LoadScript
     end
 
     def categories
-      ["Agriculture", "Education", "Community"]
+      ["Agriculture", "Education", "Water and Sanitation", "Youth", "Conflict Zones", "Transportation", "Housing", "Banking and Finance", "Manufacturing", "Food and Nutrition", "Vulnerable Groups"]
     end
   end
 end
