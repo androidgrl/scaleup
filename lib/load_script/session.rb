@@ -147,23 +147,19 @@ module LoadScript
     end
 
     def new_borrower_creates_loan_request(name = new_user_name)
-      puts "new borrower creaets loan request"
+      puts "new borrower creates loan request"
       log_out
       sign_up_as_borrower(name)
       session.click_on("Create Loan Request")
-      session.within("#loanRequestModal") do
-        session.fill_in("loan_request_title", with: "Need burgers")
-        session.fill_in("loan_request_description", with: "Want to buy a burger")
-        session.fill_in("loan_request_image_url", with: "http://news.bbc.co.uk/olmedia/755000/images/_758899_farmer.jpg
-")
-        session.select("11/05/2015", from: "loan_request_requested_by_date")
-        session.select("11/05/2015", from: "loan_request_repayment_begin_date")
-        session.select("monthly", from: "loan_request_repayment_rate")
-        session.select("Agriculture", from: "loan_request_category")
-        session.fill_in("loan_request_amount", with: "10")
 
-        session.click_link_or_button "Submit"
-      end
+      session.fill_in "Title", with: 'Yoo Hoo'
+      session.fill_in "Description", with: 'Very descriptive'
+      session.fill_in "Amount", with: 200
+      session.find("#loan_request_requested_by_date").set("06/01/2016")
+      session.find("#loan_request_repayment_begin_date").set("06/01/2016")
+      session.select("Agriculture", from: "loan_request[category]")
+
+      session.click_link_or_button "Submit"
     end
 
     def categories
