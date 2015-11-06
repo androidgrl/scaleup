@@ -20,12 +20,12 @@ module LoadScript
     end
 
     def session
-      @session ||= Capybara::Session.new(:poltergeist)
+      @session ||= Capybara::Session.new(:selenium)
     end
 
     def run
       while true
-        run_action(:browse_loan_requests)
+        run_action(:new_borrower_creates_loan_request)
       end
     end
 
