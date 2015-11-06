@@ -25,7 +25,7 @@ module LoadScript
 
     def run
       while true
-        run_action(:view_individual_loan_request)
+        run_action(:sign_up_as_borrower)
       end
     end
 
@@ -56,6 +56,21 @@ module LoadScript
       session.fill_in("Email", with: email)
       session.fill_in("Password", with: pw)
       session.click_link_or_button("Log In")
+    end
+
+    def log_out
+      session.visit host
+      if session.has_content?("Log out")
+        session.find("#logout").click
+      end
+    end
+
+    def new_user_name
+      "#{Faker::Name.name} #{Time.now.to_i}"
+    end
+
+    def new_user_email(name)
+      "TuringPivotBots+#{name.split.join}@gmail.com"
     end
 
     def browse_loan_requests
@@ -103,27 +118,26 @@ module LoadScript
       session.click_on(categories.sample)
     end
 
-    def log_out
-      session.visit host
-      if session.has_content?("Log out")
-        session.find("#logout").click
-      end
-    end
-
-    def new_user_name
-      "#{Faker::Name.name} #{Time.now.to_i}"
-    end
-
-    def new_user_email(name)
-      "TuringPivotBots+#{name.split.join}@gmail.com"
-    end
-
     def sign_up_as_lender(name = new_user_name)
       puts "signing up as lender"
       log_out
       session.find("#sign-up-dropdown").click
       session.find("#sign-up-as-lender").click
       session.within("#lenderSignUpModal") do
+        session.fill_in("user_name", with: name)
+        session.fill_in("user_email", with: new_user_email(name))
+        session.fill_in("user_password", with: "password")
+        session.fill_in("user_password_confirmation", with: "password")
+        session.click_link_or_button "Create Account"
+      end
+    end
+
+    def sign_up_as_borrower(name = new_user_name)
+      puts "signing up as borrower"
+      log_out
+      session.find("#sign-up-dropdown").click
+      session.find("#sign-up-as-borrower").click
+      session.within("#borrowerSignUpModal") do
         session.fill_in("user_name", with: name)
         session.fill_in("user_email", with: new_user_email(name))
         session.fill_in("user_password", with: "password")
