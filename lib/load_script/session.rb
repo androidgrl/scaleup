@@ -25,7 +25,7 @@ module LoadScript
 
     def run
       while true
-        run_action(:new_borrower_creates_loan_request)
+        run_action(:lender_makes_loan)
       end
     end
 
@@ -160,6 +160,15 @@ module LoadScript
       session.select("Agriculture", from: "loan_request[category]")
 
       session.click_link_or_button "Submit"
+    end
+
+    def lender_makes_loan
+      puts "new lender creates loan request"
+      log_out
+      user_view_individual_loan_request
+      session.click_on("Contribute $25")
+      session.click_on("Basket")
+      session.click_on("Transfer Funds")
     end
 
     def categories
