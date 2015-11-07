@@ -20,7 +20,7 @@ module LoadScript
     end
 
     def session
-      @session ||= Capybara::Session.new(:selenium)
+      @session ||= Capybara::Session.new(:poltergeist)
     end
 
     def run
