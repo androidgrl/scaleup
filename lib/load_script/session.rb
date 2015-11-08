@@ -25,7 +25,7 @@ module LoadScript
 
     def run
       while true
-        run_action(:view_individual_loan_request)
+        run_action(actions.sample)
       end
     end
 
