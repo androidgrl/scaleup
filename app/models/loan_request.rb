@@ -1,6 +1,4 @@
 class LoanRequest < ActiveRecord::Base
-  include InvalidatesCache
-
   validates :title, :description, :amount,
     :requested_by_date, :repayment_begin_date,
     :repayment_rate, :contributed, presence: true
@@ -13,6 +11,9 @@ class LoanRequest < ActiveRecord::Base
   enum status: %w(active funded)
   enum repayment_rate: %w(monthly weekly)
   before_create :assign_default_image
+
+  after_create :clear_cached_count
+  after_destroy :clear_cached_count
 
   def self.cached_count
     Rails.cache.fetch("loan_requests_count") do
@@ -92,5 +93,11 @@ class LoanRequest < ActiveRecord::Base
     #get the first 4 categories, then get the first loan request from that
     categories[0].loan_requests.take(4)
     #(categories.flat_map(&:loan_requests) - [self]).sample(4)
+  end
+
+  private
+
+  def clear_cached_count
+    Rails.cache.delete("loan_requests_count")
   end
 end
