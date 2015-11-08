@@ -80,8 +80,12 @@ module LoadScript
 
     def user_browse_loan_requests
       puts "user browsing loan requests"
-      log_in
-      session.visit "#{host}/browse"
+      begin
+        log_in
+        session.visit "#{host}/browse"
+      rescue
+        puts "this is not working"
+      end
     end
 
     def browse_pages_of_loan_requests
