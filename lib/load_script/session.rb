@@ -25,7 +25,7 @@ module LoadScript
 
     def run
       while true
-        run_action(:lender_makes_loan)
+        run_action(:view_individual_loan_request)
       end
     end
 
@@ -46,7 +46,7 @@ module LoadScript
     end
 
     def actions
-      [:browse_loan_requests, :user_browse_loan_requests, :sign_up_as_lender]
+      [:browse_loan_requests, :user_browse_loan_requests, :browse_pages_of_loan_requests, :user_browse_pages_of_loan_requests, :view_individual_loan_request, :user_view_individual_loan_request, :user_browse_categories, :sign_up_as_lender, :sign_up_as_borrower, :new_borrower_creates_loan_request, :lender_makes_loan]
     end
 
     def log_in(email="demo+horace@jumpstartlab.com", pw="password")

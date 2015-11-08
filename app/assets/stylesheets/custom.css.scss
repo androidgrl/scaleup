@@ -2,6 +2,10 @@ $primary-color: #fff;
 $hover-color: #fed136;
 $muted: #777;
 
+.error {
+    background-color: #428BCA;
+    color: white;
+}
 
 body {
   padding-top: 50px;
