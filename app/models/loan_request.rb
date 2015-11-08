@@ -90,9 +90,7 @@ class LoanRequest < ActiveRecord::Base
   end
 
   def related_projects
-    #get the first 4 categories, then get the first loan request from that
-    categories[0].loan_requests.take(4)
-    #(categories.flat_map(&:loan_requests) - [self]).sample(4)
+    categories[0].loan_requests.limit(5).order("RANDOM()")
   end
 
   private
